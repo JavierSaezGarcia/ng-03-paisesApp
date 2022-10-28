@@ -6,11 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class PorPaisComponent implements OnInit {
+export class PorPaisComponent {
+
+  termino: string = 'Hola Mundo';
+  private apiUrl: string = 'https://restcountries.com/v2';
 
   constructor() { }
+  buscar(){
+    console.log(this.termino)
 
-  ngOnInit(): void {
   }
+
 
 }
