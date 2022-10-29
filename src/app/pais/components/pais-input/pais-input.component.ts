@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { debounceTime, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-pais-input',
@@ -6,9 +7,33 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styles: [
   ]
 })
-export class PaisInputComponent {
+export class PaisInputComponent implements OnInit{
 
    @Output() onEnter: EventEmitter<string>= new EventEmitter();
+   
+   // onDebounce es para crear venetos cuando se escribe o se dea de escriboir en tiempo real
+   @Output() onDebounce: EventEmitter<string> = new EventEmitter();
+
+   // 'Subject' es un observador especial de Rx
+   
+   debouncer: Subject<string> = new Subject;
+
+   @Input() placeholder:string = '';
+
+  
+
+  ngOnInit() {
+    this.debouncer
+      .pipe(
+        debounceTime(300) // esto lo que hace es: "No emitas un nuevo valor hasta que no pasen 300 milisegundos"
+      )
+      .subscribe( valor => {
+        //console.log('debouncer',valor);
+        this.onDebounce.emit( valor )
+      })
+      
+  }
+
 
   termino: string = '';
   // cuando pulsamos enter accedemos al metodo buscar
@@ -20,6 +45,14 @@ export class PaisInputComponent {
     this.onEnter.emit( this.termino );
   }
 
+  teclaPresionada(){
+    // const valor = event.target.value;
+    // console.log(valor);
+    // console.log(this.termino)
+    this.debouncer.next( this.termino ); // lo hacemos de esta forma porque debouncer usa un observable (subscribe)
+  }
+
   
 
 }
+
