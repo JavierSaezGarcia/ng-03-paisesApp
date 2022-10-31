@@ -1,1 +1,29 @@
-<h3>Por Región</h3>
+<h3>Por Continente: <small> {{ regionActiva | titlecase }}</small></h3>
+<hr>
+
+<h5>Seleccione el Continente</h5>
+<!-- Varias formas de quitar y poner clases en css con angular y ña directiva ngClass -->
+<!-- 1º -->
+<!-- [class.btn-primary]="region == regionActiva" -->
+<!-- 2ª -->
+<!-- [ngClass]="{
+    'btn-primary':regionActiva === region,
+    'btn-outline-primary': regionActiva !== region
+}" -->
+<div class="row">
+    <div class="col">
+        <button *ngFor="let region of regiones"
+        [class]="getClaseCSS( region )"        
+        (click)="activarRegion( region ); activarRegion(region);"
+        >
+            {{ region | titlecase }}
+        </button>
+
+    </div>
+    
+</div>
+<div *ngIf="paises.length > 0"  class="row">
+    <div class="col">
+        <app-pais-tabla [paises]="paises"></app-pais-tabla>
+    </div>
+</div>
