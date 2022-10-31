@@ -3,8 +3,8 @@
         name="termino"
         class="form-control"
         [(ngModel)]="termino"
-        [placeholder]="placeholder"
-        
+        (input)="teclaPresionada()"
+        [placeholder]="placeholder"       
     />
 
 </form>

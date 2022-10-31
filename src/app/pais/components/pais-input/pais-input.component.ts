@@ -24,13 +24,12 @@ export class PaisInputComponent implements OnInit{
 
   ngOnInit() {
     this.debouncer
-      .pipe(
-        debounceTime(300) // esto lo que hace es: "No emitas un nuevo valor hasta que no pasen 300 milisegundos"
-      )
-      .subscribe( valor => {
-        //console.log('debouncer',valor);
-        this.onDebounce.emit( valor )
-      })
+      .pipe(debounceTime(300)) 
+      .subscribe({
+        next: (valor) => {        
+          this.onDebounce.emit(valor);
+        }
+      });
       
   }
 
@@ -49,7 +48,8 @@ export class PaisInputComponent implements OnInit{
     // const valor = event.target.value;
     // console.log(valor);
     // console.log(this.termino)
-    this.debouncer.next( this.termino ); // lo hacemos de esta forma porque debouncer usa un observable (subscribe)
+    this.debouncer.next(this.termino); // lo hacemos de esta forma porque debouncer usa un observable (subscribe)
+    
   }
 
   
