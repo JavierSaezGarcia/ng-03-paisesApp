@@ -11,7 +11,7 @@ export class PaisInputComponent implements OnInit{
 
    @Output() onEnter: EventEmitter<string>= new EventEmitter();
    
-   // onDebounce es para crear venetos cuando se escribe o se dea de escriboir en tiempo real
+   // onDebounce es para crear eventos cuando se escribe o se deja de escribir en tiempo real
    @Output() onDebounce: EventEmitter<string> = new EventEmitter();
 
    // 'Subject' es un observador especial de Rx
